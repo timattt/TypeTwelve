@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import { thunk } from 'redux-thunk'
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {Provider} from 'react-redux'
+import {rootReducer} from "./store/reducers/root-reducer";
+import PrivateRoutes from "./pages/private-route";
+import LoginPage from "./pages/login-page";
+import UnauthorizedPage from "./pages/unauthorized-page";
+import HomePage from "./pages/home-page";
+import SuccessfulAuthorizationPage from "./pages/successful-authorization-page";
+import CodePage from "./pages/code-page";
+import { configureStore } from '@reduxjs/toolkit'
+import Header from "./pages/header";
+import RegistrationPage from "./pages/registration-page";
+import CoursePage from "./pages/course-page";
+
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk)
+})
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return <Provider store={store}>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Header/>} path="/">
+          <Route element={<LoginPage/>} path="/login"/>
+          <Route element={<UnauthorizedPage/>} path="/unauthorized"/>
+          <Route element={<HomePage/>} path="/"/>
+          <Route element={<CodePage/>} path="/code"/>
+          <Route element={<PrivateRoutes />}>
+            <Route element={<SuccessfulAuthorizationPage/>} path="/authorized"/>
+            <Route element={<RegistrationPage/>} path="/register"/>
+            <Route element={<CoursePage/>} path="/course"/>
+          </Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  </Provider>
 }
 
 export default App;

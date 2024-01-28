@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: type-8
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: type-8
+  template:
+    metadata:
+      labels:
+        app: type-8
+    spec:
+      containers:
+        - name: type-8
+          image: docker.io/timattt/type-8:latest
+          imagePullPolicy: Always
+          env:
+            - name: REACT_APP_TYPE8_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: type-6-basic-secrets
+                  key: type_8_client_id
+            - name: REACT_APP_TYPE8_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: type-6-basic-secrets
+                  key: type_8_client_secret
+            - name: REACT_APP_TYPE8_REDIRECT_URI
+              value: https://mipt-study.ru/code
+            - name: REACT_APP_TYPE8_SERVER_IP
+              value: https://auth-mipt-match.ru
+            - name: REACT_APP_TYPE8_METADATA_SERVER_IP
+              value: https://auth-mipt-match.ru
+            - name: HTTPS
+              value: "false"
