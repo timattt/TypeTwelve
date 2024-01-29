@@ -79,7 +79,7 @@ const RegistrationPage = (props) => {
                 </Typography>
             </CardContent>
         </Card>
-        {props.student === undefined ? <RegistrationPane/> : <OkPane/>}
+        {props.student === null || props.student === undefined ? <RegistrationPane/> : <OkPane/>}
     </Box>
 }
 
