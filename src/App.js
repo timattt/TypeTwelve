@@ -12,6 +12,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import Header from "./pages/header";
 import RegistrationPage from "./pages/registration-page";
 import CoursePage from "./pages/course-page";
+import TestsListPage from "./pages/tests-list-page";
 
 const store = configureStore({
   reducer: rootReducer,
@@ -31,6 +32,7 @@ function App() {
             <Route element={<SuccessfulAuthorizationPage/>} path="/authorized"/>
             <Route element={<RegistrationPage/>} path="/register"/>
             <Route element={<CoursePage/>} path="/course"/>
+            <Route element={<TestsListPage/>} path="/tests"/>
           </Route>
         </Route>
       </Routes>

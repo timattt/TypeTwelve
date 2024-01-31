@@ -9,6 +9,11 @@ export const UserInfoActionTypes = {
     register: "REGISTER"
 }
 
+export const userRoles = {
+    student: "student",
+    admin: "admin"
+}
+
 export const availableGroups = ["Б05-311", "Б05-251"]
 
 export const serverUrl = process.env.REACT_APP_TYPE8_SERVER_IP

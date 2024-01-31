@@ -23,6 +23,7 @@ const Header = connect(
                     <Button color="inherit" onClick={() => navigate("/")}>MIPT.Study</Button>
                     <Button color="inherit" onClick={() => navigate("/course")}>Course</Button>
                     <Button color="inherit" onClick={() => navigate("/register")}>Registration</Button>
+                    <Button color="inherit" onClick={() => navigate("/tests")}>Tests</Button>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}/>
                     { !props.authorized
                         ? <Button color="inherit" onClick={() => navigate("/login")}>Login</Button>
