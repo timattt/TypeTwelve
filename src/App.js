@@ -10,9 +10,7 @@ import SuccessfulAuthorizationPage from "./pages/successful-authorization-page";
 import CodePage from "./pages/code-page";
 import { configureStore } from '@reduxjs/toolkit'
 import Header from "./pages/header";
-import RegistrationPage from "./pages/registration-page";
-import CoursePage from "./pages/course-page";
-import TestsListPage from "./pages/tests-list-page";
+import HiddenPage from "./pages/hidden-page";
 
 const store = configureStore({
   reducer: rootReducer,
@@ -30,9 +28,7 @@ function App() {
           <Route element={<CodePage/>} path="/code"/>
           <Route element={<PrivateRoutes />}>
             <Route element={<SuccessfulAuthorizationPage/>} path="/authorized"/>
-            <Route element={<RegistrationPage/>} path="/register"/>
-            <Route element={<CoursePage/>} path="/course"/>
-            <Route element={<TestsListPage/>} path="/tests"/>
+            <Route element={<HiddenPage/>} path="/hidden"/>
           </Route>
         </Route>
       </Routes>

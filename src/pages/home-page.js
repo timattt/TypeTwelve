@@ -11,11 +11,9 @@ export default function HomePage() {
             <Card>
                 <CardContent>
                     <Typography variant="h6">
-                        MIPT.Study
+                        Шаблон
                     </Typography>
-                    <Typography variant="h8">
-                        - это open-source-проект, для проведения семинаров по Технологиям программирования на 1-2 курсах ФИВТа
-                    </Typography>
+                    Для фронта
                 </CardContent>
                 <CardActions>
                     <Button size="small" onClick={() => navigate("/login")}>Приступить</Button>

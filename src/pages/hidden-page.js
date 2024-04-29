@@ -1,12 +1,16 @@
 import {Box, Card, CardContent, Typography} from "@mui/material";
 import {connect} from "react-redux";
 
-const TestsListPage = (props) => {
-    return <Box>
+const HiddenPage = (props) => {
+    return <Box display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center">
+        <br/>
         <Card>
             <CardContent>
                 <Typography variant="h6">
-                    Всего тестов: {props.tests.length}
+                    Что-то полезное
                 </Typography>
             </CardContent>
         </Card>
@@ -16,12 +20,9 @@ const TestsListPage = (props) => {
 export default connect(
     (state) => {
         return {
-            userInfo: state.userInfoReducer.userInfo,
-            student: state.userInfoReducer.student,
-            tests: state.userInfoReducer.tests
         }
     },
     (dispatch) => {
         return {}
     }
-)(TestsListPage);
+)(HiddenPage);

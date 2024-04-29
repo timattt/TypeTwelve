@@ -3,28 +3,33 @@ import {AuthActionTypes, clientId, clientSecret, redirectUri, serverUrl} from ".
 import {
     clearTokens,
     getAccessToken,
-    getRefreshToken
+    getRefreshToken, hasRefreshToken
 } from "../token-manager";
-import {loadAll} from "./user-info-actions";
 
 function generateClientAuthPayload() {
     return 'Basic ' + btoa(clientId + ":" + clientSecret)
 }
 
+const OAUTH2_TOKEN_ENDPOINT = "/sso/oauth2/token"
+const OAUTH2_AUTHORIZATION_ENDPOINT = "/sso/oauth2/authorize"
+const LOGOUT_ENDPOINT = "/sso/logout"
+const INTROSPECTION_ENDPOINT = '/sso/oauth2/introspect'
+
 export function performAuthorization() {
     console.log(serverUrl)
     console.log("Action: [performAuthorization]")
     return dispatch => {
-        window.location.replace(`${serverUrl}/oauth2/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}`)
+        window.location.replace(`${serverUrl}${OAUTH2_AUTHORIZATION_ENDPOINT}?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}`)
     }
 }
 
 export function performLogout() {
+    const origin = new URL(redirectUri).origin
     console.log("Action: [performLogout]")
-    console.log(`${serverUrl}/logout`)
+    console.log(`${serverUrl}${LOGOUT_ENDPOINT}?redirect=${origin}`)
     return () => {
         clearTokens()
-        window.location.replace(`${serverUrl}/logout`)
+        window.location.replace(`${serverUrl}${LOGOUT_ENDPOINT}?redirect=${origin}`)
     }
 }
 
@@ -36,7 +41,7 @@ export function exchangeCodeToToken(code) {
         payload.append('code', code)
         payload.append('redirect_uri', redirectUri)
         payload.append('client_id', clientId)
-        return axios.post(serverUrl + '/oauth2/token', payload, {
+        return axios.post(serverUrl + OAUTH2_TOKEN_ENDPOINT, payload, {
                 headers: {
                     'Content-type': 'application/url-form-encoded',
                     'Authorization': generateClientAuthPayload()
@@ -45,7 +50,7 @@ export function exchangeCodeToToken(code) {
         ).then(response => {
             dispatch({type: AuthActionTypes.authorize, payload: {access: response.data["access_token"], refresh: response.data["refresh_token"]}})
         }).catch(err => {
-            console.log("HTTP request to [/oauth2/token] failed with error:" + err)
+            console.log(`HTTP request to [${OAUTH2_TOKEN_ENDPOINT}] failed with error:` + err)
         })
     }
 }
@@ -55,16 +60,29 @@ export function introspectToken() {
     return dispatch => {
         let payload = new FormData()
         payload.append('token', getAccessToken())
-        return axios.post(serverUrl + '/oauth2/introspect', payload, {
+        return axios.post(serverUrl + INTROSPECTION_ENDPOINT, payload, {
             headers: {
                 'Content-type': 'application/url-form-encoded',
                 'Authorization': generateClientAuthPayload()
             }
         }).then(res => {
-            dispatch({type: AuthActionTypes.updateTokenState, payload: true})
+            if (!res.data.active) {
+                if (hasRefreshToken()) {
+                    dispatch(refreshAccessToken())
+                } else {
+                    dispatch({type: AuthActionTypes.updateTokenState, payload: false})
+                }
+            } else {
+                dispatch({type: AuthActionTypes.updateTokenState, payload: true})
+            }
+
         }).catch(err => {
-            console.log("HTTP request to [/oauth2/introspect] failed with error:" + err)
-            dispatch({type: AuthActionTypes.updateTokenState, payload: false})
+            console.log(`HTTP request to [${INTROSPECTION_ENDPOINT}] failed with error:` + err)
+            if (hasRefreshToken()) {
+                dispatch(refreshAccessToken())
+            } else {
+                dispatch({type: AuthActionTypes.updateTokenState, payload: false})
+            }
         });
     }
 }
@@ -81,16 +99,16 @@ export function refreshAccessToken() {
         payload.append('refresh_token', getRefreshToken())
         payload.append('redirect_uri', redirectUri)
         payload.append('client_id', clientId)
-        return axios.post(serverUrl + '/oauth2/token', payload, {
+        return axios.post(serverUrl + OAUTH2_TOKEN_ENDPOINT, payload, {
             headers: {
                 'Content-type': 'application/url-form-encoded',
                 'Authorization': generateClientAuthPayload()
             }
         }).then(response => {
             dispatch({type: AuthActionTypes.refreshAccessToken, payload: {access: response.data["access_token"], refresh: response.data["refresh_token"]}})
-            dispatch(loadAll())
+            dispatch(introspectToken())
         }).catch(err => {
-            console.log("HTTP request to [/oauth2/token] failed with error:" + err)
+            console.log(`HTTP request to [${OAUTH2_TOKEN_ENDPOINT}] failed with error:` + err)
             dispatch({type: AuthActionTypes.updateTokenState, payload: false})
         });
     }
