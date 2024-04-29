@@ -28,10 +28,8 @@ spec:
                   name: type-6-basic-secrets
                   key: type_8_client_secret
             - name: REACT_APP_TYPE8_REDIRECT_URI
-              value: https://mipt-study.ru/code
+              value: https://service-shlim-tech/code
             - name: REACT_APP_TYPE8_SERVER_IP
-              value: https://auth-mipt-match.ru
-            - name: REACT_APP_TYPE8_METADATA_SERVER_IP
-              value: https://auth-mipt-match.ru
+              value: https://service-shlim-tech.ru
             - name: HTTPS
               value: "false"
