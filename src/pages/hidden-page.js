@@ -1,7 +1,6 @@
 import {Box, Card, CardContent, Typography} from "@mui/material";
-import {connect} from "react-redux";
 
-const HiddenPage = (props) => {
+export default () => {
     return <Box display="flex"
                 flexDirection="column"
                 justifyContent="center"
@@ -16,13 +15,3 @@ const HiddenPage = (props) => {
         </Card>
     </Box>
 }
-
-export default connect(
-    (state) => {
-        return {
-        }
-    },
-    (dispatch) => {
-        return {}
-    }
-)(HiddenPage);

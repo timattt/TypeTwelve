@@ -1,9 +1,7 @@
-import {connect} from "react-redux";
 import {Box, Button, Card, CardActions, CardContent, Typography} from "@mui/material";
-import {useNavigate} from "react-router-dom";
 import {getAccessToken, getRefreshToken, hasTokens} from "../store/token-manager";
 
-const SuccessfulAuthorizationPage = (props) => {
+export default () => {
     return <Box>
             <Card>
                 <CardContent>
@@ -33,12 +31,3 @@ const SuccessfulAuthorizationPage = (props) => {
             </Card>
     </Box>
 }
-
-export default connect(
-    (state) => {
-        return {}
-    },
-    (dispatch) => {
-        return {}
-    }
-)(SuccessfulAuthorizationPage);
