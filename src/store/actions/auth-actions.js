@@ -1,5 +1,12 @@
 import axios from "axios";
-import {AuthActionTypes, clientId, clientSecret, redirectUri, serverUrl} from "../constants";
+import {
+    AuthActionTypes,
+    CLIENT_ID,
+    CLIENT_SECRET, INTROSPECTION_ENDPOINT, LOGOUT_ENDPOINT,
+    OAUTH2_AUTHORIZATION_ENDPOINT, OAUTH2_TOKEN_ENDPOINT,
+    REDIRECT_URI,
+    SSO_URL
+} from "../constants";
 import {
     clearTokens,
     getAccessToken,
@@ -7,29 +14,22 @@ import {
 } from "../token-manager";
 
 function generateClientAuthPayload() {
-    return 'Basic ' + btoa(clientId + ":" + clientSecret)
+    return 'Basic ' + btoa(CLIENT_ID + ":" + CLIENT_SECRET)
 }
 
-const OAUTH2_TOKEN_ENDPOINT = "/sso/oauth2/token"
-const OAUTH2_AUTHORIZATION_ENDPOINT = "/sso/oauth2/authorize"
-const LOGOUT_ENDPOINT = "/sso/logout"
-const INTROSPECTION_ENDPOINT = '/sso/oauth2/introspect'
-
 export function performAuthorization() {
-    console.log(serverUrl)
     console.log("Action: [performAuthorization]")
     return dispatch => {
-        window.location.replace(`${serverUrl}${OAUTH2_AUTHORIZATION_ENDPOINT}?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}`)
+        window.location.replace(`${SSO_URL}${OAUTH2_AUTHORIZATION_ENDPOINT}?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`)
     }
 }
 
 export function performLogout() {
-    const origin = new URL(redirectUri).origin
     console.log("Action: [performLogout]")
-    console.log(`${serverUrl}${LOGOUT_ENDPOINT}?redirect=${origin}`)
+    const origin = new URL(REDIRECT_URI).origin
     return () => {
         clearTokens()
-        window.location.replace(`${serverUrl}${LOGOUT_ENDPOINT}?redirect=${origin}`)
+        window.location.replace(`${SSO_URL}${LOGOUT_ENDPOINT}?redirect=${origin}`)
     }
 }
 
@@ -39,9 +39,9 @@ export function exchangeCodeToToken(code) {
         let payload = new FormData()
         payload.append('grant_type', 'authorization_code')
         payload.append('code', code)
-        payload.append('redirect_uri', redirectUri)
-        payload.append('client_id', clientId)
-        return axios.post(serverUrl + OAUTH2_TOKEN_ENDPOINT, payload, {
+        payload.append('redirect_uri', REDIRECT_URI)
+        payload.append('client_id', CLIENT_ID)
+        return axios.post(SSO_URL + OAUTH2_TOKEN_ENDPOINT, payload, {
                 headers: {
                     'Content-type': 'application/url-form-encoded',
                     'Authorization': generateClientAuthPayload()
@@ -60,7 +60,7 @@ export function introspectToken() {
     return dispatch => {
         let payload = new FormData()
         payload.append('token', getAccessToken())
-        return axios.post(serverUrl + INTROSPECTION_ENDPOINT, payload, {
+        return axios.post(SSO_URL + INTROSPECTION_ENDPOINT, payload, {
             headers: {
                 'Content-type': 'application/url-form-encoded',
                 'Authorization': generateClientAuthPayload()
@@ -87,19 +87,15 @@ export function introspectToken() {
     }
 }
 
-/**
- * Used as chain from this file
- * @returns {function(*): Promise<void>}
- */
 export function refreshAccessToken() {
     console.log("Action: [refreshAccessToken]")
     return dispatch => {
         let payload = new FormData()
         payload.append('grant_type', 'refresh_token')
         payload.append('refresh_token', getRefreshToken())
-        payload.append('redirect_uri', redirectUri)
-        payload.append('client_id', clientId)
-        return axios.post(serverUrl + OAUTH2_TOKEN_ENDPOINT, payload, {
+        payload.append('redirect_uri', REDIRECT_URI)
+        payload.append('client_id', CLIENT_ID)
+        return axios.post(SSO_URL + OAUTH2_TOKEN_ENDPOINT, payload, {
             headers: {
                 'Content-type': 'application/url-form-encoded',
                 'Authorization': generateClientAuthPayload()

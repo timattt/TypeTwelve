@@ -8,10 +8,10 @@ export default () => {
             <Card>
                 <CardContent>
                     <Typography variant="h6">
-                        Вы не авторизированны
+                        Вы не аутентифицированы
                     </Typography>
                     <Typography variant="h8">
-                        Пожалуйста, войдите в сервис через вашу студенческую почту, чтобы вас можно было идентифицировать.
+                        Пожалуйста, пройдите аутентификацию
                     </Typography>
                 </CardContent>
                 <CardActions>
