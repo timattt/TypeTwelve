@@ -10,7 +10,7 @@ import SuccessfulAuthorizationPage from "./pages/successful-authorization-page";
 import CodePage from "./pages/code-page";
 import { configureStore } from '@reduxjs/toolkit'
 import Header from "./pages/header";
-import HiddenPage from "./pages/hidden-page";
+import MessengerPage from "./pages/messenger-page";
 
 const store = configureStore({
   reducer: rootReducer,
@@ -28,7 +28,7 @@ function App() {
           <Route element={<CodePage/>} path="/code"/>
           <Route element={<PrivateRoutes />}>
             <Route element={<SuccessfulAuthorizationPage/>} path="/authorized"/>
-            <Route element={<HiddenPage/>} path="/hidden"/>
+            <Route element={<MessengerPage/>} path="/messenger"/>
           </Route>
         </Route>
       </Routes>

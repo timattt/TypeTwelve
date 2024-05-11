@@ -1,35 +1,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: type-8
+  name: type-12
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: type-8
+      app: type-12
   template:
     metadata:
       labels:
-        app: type-8
+        app: type-12
     spec:
       containers:
-        - name: type-8
-          image: docker.io/timattt/type-8:latest
+        - name: type-12
+          image: docker.io/timattt/type-12:latest
           imagePullPolicy: Always
           env:
-            - name: REACT_APP_TYPE8_CLIENT_ID
+            - name: REACT_APP_TYPE12_CLIENT_ID
               valueFrom:
                 secretKeyRef:
                   name: type-6-basic-secrets
                   key: type_8_client_id
-            - name: REACT_APP_TYPE8_CLIENT_SECRET
+            - name: REACT_APP_TYPE12_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: type-6-basic-secrets
                   key: type_8_client_secret
-            - name: REACT_APP_TYPE8_REDIRECT_URI
+            - name: REACT_APP_TYPE12_REDIRECT_URI
               value: https://pattern.shlimtech.org/code
-            - name: REACT_APP_TYPE8_SERVER_IP
+            - name: REACT_APP_TYPE12_SERVER_IP
               value: https://service.shlimtech.org
+            - name: REACT_APP_TYPE12_TYPE11_URL
+              value: https://type-11.shlimtech.org
             - name: HTTPS
               value: "false"

@@ -12,8 +12,8 @@ export default () => {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                    <Button color="inherit" onClick={() => navigate("/")}>Type-8</Button>
-                    {authorized ? <Button color="inherit" onClick={() => navigate("/hidden")}>Hidden</Button> : <div/>}
+                    <Button color="inherit" onClick={() => navigate("/")}>Type-12</Button>
+                    {authorized ? <Button color="inherit" onClick={() => navigate("/messenger")}>Messenger</Button> : <div/>}
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}/>
                     { !authorized
                         ? <Button color="inherit" onClick={() => navigate("/login")}>Login</Button>
