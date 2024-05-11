@@ -32,6 +32,6 @@ spec:
             - name: REACT_APP_TYPE12_SERVER_IP
               value: https://service.shlimtech.org
             - name: REACT_APP_TYPE12_TYPE11_URL
-              value: http://type-11.shlimtech.org
+              value: https://type-11.shlimtech.org
             - name: HTTPS
               value: "false"
