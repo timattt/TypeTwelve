@@ -11,9 +11,9 @@ export default function HomePage() {
             <Card>
                 <CardContent>
                     <Typography variant="h6">
-                        Шаблон
+                        Messenger
                     </Typography>
-                    Для фронта
+                    Сервис для общения.
                 </CardContent>
                 <CardActions>
                     <Button size="small" onClick={() => navigate("/login")}>Приступить</Button>
