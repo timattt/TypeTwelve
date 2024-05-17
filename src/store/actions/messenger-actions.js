@@ -1,7 +1,7 @@
 import {MessengerClient} from "../../proto/messenger_grpc_web_pb";
 import {GrpcMessage, SendMessageRequest, GetMessageAfterRequest} from "../../proto/messenger_pb";
 import {MessengerActionTypes, TYPE11_URL} from "../constants";
-import {getSelfEmail} from "../token-manager";
+import {getAccessToken, getSelfEmail} from "../token-manager";
 
 const client = new MessengerClient(TYPE11_URL, null, null);
 
@@ -16,7 +16,7 @@ export function sendMessage(toEmail, content) {
         mes.setContent(content)
         req.setMessage(mes)
         return new Promise((resolve, reject) => {
-            client.sendMessage(req, {}, (err, result) => {
+            client.sendMessage(req, {"Authorization": "Bearer " + getAccessToken()}, (err, result) => {
                 if (err) {
                     reject(err.message);
                 } else {
@@ -42,7 +42,7 @@ export function getMessagesAfter(time) {
         req.setUseremail(fromEmail)
         req.setTime(time)
         return new Promise((resolve, reject) => {
-            client.getMessagesAfter(req, {}, (err, result) => {
+            client.getMessagesAfter(req, {"Authorization": "Bearer " + getAccessToken()}, (err, result) => {
                 if (err) {
                     reject(err.message);
                 } else {
