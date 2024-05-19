@@ -75,12 +75,12 @@ export const introspectToken = createAsyncThunk(
 
             if (!response.data.active && hasRefreshToken()) {
                 thunkAPI.dispatch(refreshAccessToken())
-                return thunkAPI.rejectWithValue(INTROSPECTION_FAIL_RESULT.REFRESHING)
+                return thunkAPI.rejectWithValue()
             }
 
             return thunkAPI.fulfillWithValue(response.data.active)
         } catch (error) {
-            return thunkAPI.rejectWithValue(INTROSPECTION_FAIL_RESULT.FAILED)
+            return thunkAPI.rejectWithValue()
         }
     }
 );
@@ -151,9 +151,7 @@ const authSlice = createSlice({
             .addCase(
                 introspectToken.rejected,
                 withLog((state, action) => {
-                    if (action.payload === INTROSPECTION_FAIL_RESULT.FAILED) {
-                        onError(state, action)
-                    }
+                    console.log("Failed to introspect token")
                 })
             )
             .addCase(

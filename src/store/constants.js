@@ -8,8 +8,3 @@ export const OAUTH2_TOKEN_ENDPOINT = "/sso/oauth2/token"
 export const OAUTH2_AUTHORIZATION_ENDPOINT = "/sso/oauth2/authorize"
 export const LOGOUT_ENDPOINT = "/sso/logout"
 export const INTROSPECTION_ENDPOINT = '/sso/oauth2/introspect'
-
-export const INTROSPECTION_FAIL_RESULT = {
-    FAILED: "FAILED",
-    REFRESHING: "REFRESHING",
-}
