@@ -201,6 +201,67 @@ proto.org.shlimtech.typeeleven.MessengerPromiseClient.prototype.listChats =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
+ *   !proto.org.shlimtech.typeeleven.ListMessagesRequest,
+ *   !proto.org.shlimtech.typeeleven.ListMessagesResponse>}
+ */
+const methodDescriptor_Messenger_listMessages = new grpc.web.MethodDescriptor(
+  '/org.shlimtech.typeeleven.Messenger/listMessages',
+  grpc.web.MethodType.UNARY,
+  proto.org.shlimtech.typeeleven.ListMessagesRequest,
+  proto.org.shlimtech.typeeleven.ListMessagesResponse,
+  /**
+   * @param {!proto.org.shlimtech.typeeleven.ListMessagesRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.org.shlimtech.typeeleven.ListMessagesResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.org.shlimtech.typeeleven.ListMessagesRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.org.shlimtech.typeeleven.ListMessagesResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.org.shlimtech.typeeleven.ListMessagesResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.org.shlimtech.typeeleven.MessengerClient.prototype.listMessages =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/org.shlimtech.typeeleven.Messenger/listMessages',
+      request,
+      metadata || {},
+      methodDescriptor_Messenger_listMessages,
+      callback);
+};
+
+
+/**
+ * @param {!proto.org.shlimtech.typeeleven.ListMessagesRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.org.shlimtech.typeeleven.ListMessagesResponse>}
+ *     Promise that resolves to the response
+ */
+proto.org.shlimtech.typeeleven.MessengerPromiseClient.prototype.listMessages =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/org.shlimtech.typeeleven.Messenger/listMessages',
+      request,
+      metadata || {},
+      methodDescriptor_Messenger_listMessages);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
  *   !proto.org.shlimtech.typeeleven.NewChatRequest,
  *   !proto.org.shlimtech.typeeleven.NewChatResponse>}
  */

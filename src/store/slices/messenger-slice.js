@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {clearTokens, getAccessToken} from "../token-manager";
 import {MessengerClient} from "../../proto/messenger_grpc_web_pb";
 import {TYPE11_URL} from "../constants";
-import {EmptyRequest, NewChatRequest, SendMessageRequest} from "../../proto/messenger_pb";
+import {EmptyRequest, NewChatRequest, SendMessageRequest, ListMessagesRequest} from "../../proto/messenger_pb";
 
 const client = new MessengerClient(TYPE11_URL, null, null);
 
@@ -51,16 +51,7 @@ export const listChatsGrpcCall = createAsyncThunk(
             return thunkAPI.fulfillWithValue(result.array[0].map(chat => {
                     return {
                         id: chat[0],
-                        users: chat[1],
-                        messages: chat[2].map(message => {
-                            return {
-                                id: message[0],
-                                content: message[1],
-                                time: message[2],
-                                chatId: message[3],
-                                senderId: message[4]
-                            }
-                        })
+                        users: chat[1]
                     }
                 }))
         } catch (error) {
@@ -105,7 +96,6 @@ export const sendMessageGrpcCall = createAsyncThunk(
             const result = await new Promise((resolve, reject) => {
                 client.sendMessage(req, {"Authorization": "Bearer " + getAccessToken()}, (err, result) => {
                     if (err) {
-                        console.log(err.message)
                         reject(err.message);
                     } else {
                         resolve(result);
@@ -153,6 +143,38 @@ export const exchangeGrpcCall = createAsyncThunk(
     }
 );
 
+export const listMessagesGrpcCall = createAsyncThunk(
+    'messages/listMessagesGrpcCall',
+    async function({chatId, count, timeFrom}, thunkAPI) {
+        try {
+            const req = new ListMessagesRequest()
+            req.setChatid(chatId)
+            req.setCount(count)
+            req.setFromtime(timeFrom)
+            const result = await new Promise((resolve, reject) => {
+                client.listMessages(req, {"Authorization": "Bearer " + getAccessToken()}, (err, result) => {
+                    if (err) {
+                        reject(err.message);
+                    } else {
+                        resolve(result);
+                    }
+                })
+            })
+            return thunkAPI.fulfillWithValue(result.array[0].map(message => {
+                return {
+                    id: message[0],
+                    content: message[1],
+                    time: message[2],
+                    chatId: message[3],
+                    senderId: message[4]
+                }
+            }))
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.message);
+        }
+    }
+);
+
 function onError(state, action) {
     console.log("Error happened in messages-slice " + action.type + " with reason: " + JSON.stringify(action.payload))
 }
@@ -168,11 +190,15 @@ const messagesSlice = createSlice({
     name: 'messages',
     initialState: {
         users: [],
-        chats: []
+        chats: [],
+        messages: []
     },
     reducers: {
         newMessage(state, action) {
-            state.chats.find(chat => chat.id === action.payload.chatId).messages.push(action.payload)
+            state.messages.push(action.payload)
+        },
+        clearMessages(state, action) {
+            state.messages = []
         }
     },
     extraReducers: (builder) => {
@@ -201,13 +227,20 @@ const messagesSlice = createSlice({
             .addCase(
                 sendMessageGrpcCall.fulfilled,
                 withLog((state, action) => {
-                    state.chats.find(chat => chat.id === action.payload.chatId).messages.push(action.payload)
+                    state.messages.push(action.payload)
                 })
             )
             .addCase(sendMessageGrpcCall.rejected, onError)
+            .addCase(
+                listMessagesGrpcCall.fulfilled,
+                withLog((state, action) => {
+                    state.messages = [...state.messages, ...action.payload]
+                })
+            )
+            .addCase(listMessagesGrpcCall.rejected, onError)
     },
 });
 
-const {newMessage} = messagesSlice.actions;
+export const {newMessage, clearMessages} = messagesSlice.actions;
 
 export default messagesSlice.reducer;

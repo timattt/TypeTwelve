@@ -2,7 +2,7 @@ import {Box, Button, Card, CardContent, CardHeader, TextField, Typography} from 
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-import {sendMessageGrpcCall} from "../store/slices/messenger-slice";
+import {listMessagesGrpcCall, sendMessageGrpcCall, clearMessages} from "../store/slices/messenger-slice";
 
 const makeUserString = (users, message) => {
     const user = users.find((user) => message.senderId === user.id)
@@ -12,14 +12,21 @@ const makeUserString = (users, message) => {
     return user.firstName + " " + user.lastName
 }
 
+const PAGE_SIZE = 2;
+
 export default () => {
     const { id } = useParams();
     const dispatch = useDispatch();
-    const chats = useSelector((state) => state.messages.chats);
+    const allMessages = useSelector((state) => state.messages.messages);
     const users = useSelector((state) => state.messages.users);
     const [text, setText] = useState("")
 
-    if (chats === undefined || users === undefined) {
+    useEffect(() => {
+        dispatch(clearMessages({}))
+        dispatch(listMessagesGrpcCall({chatId: id, timeFrom: Date.now(), count: PAGE_SIZE}));
+    }, [dispatch, id])
+
+    if (allMessages === undefined || users === undefined) {
         return <Box>
             <Card>
                 <CardContent>
@@ -31,19 +38,7 @@ export default () => {
         </Box>
     }
 
-    const chat = chats.find((chat) => chat.id == id);
-
-    if (chat === undefined) {
-        return <Box>
-            <Card>
-                <CardContent>
-                    <Typography variant="h6">
-                        {chats.length === 0 ? "" : "No such chat!"}
-                    </Typography>
-                </CardContent>
-            </Card>
-        </Box>
-    }
+    const messages = allMessages.filter(message => message.chatId === Number(id)).sort((a, b) => -a.time + b.time)
 
     return <Box>
         <Card>
@@ -60,14 +55,14 @@ export default () => {
                 <br/>
                 <br/>
                 <Button onClick={(event) => {
-                    dispatch(sendMessageGrpcCall({chatId: chat.id, content: text}))
+                    dispatch(sendMessageGrpcCall({chatId: id, content: text}))
                 }}>Send</Button>
             </CardContent>
         </Card>
         <br/>
         <Card>
             <CardContent>
-                {[...chat.messages].sort((a, b) => -a.time + b.time).map((message, index) => {
+                {messages.map((message, index) => {
                     return <div key={index}>
                         <Typography variant="h8">
                             {(new Date(message.time)).toUTCString()}
@@ -81,6 +76,10 @@ export default () => {
                         <br/>
                     </div>
                 })}
+                <br/>
+                <Button onClick={() => {
+                    dispatch(listMessagesGrpcCall({chatId: id, timeFrom: messages[messages.length - 1].time, count: PAGE_SIZE}));
+                }}>More</Button>
             </CardContent>
         </Card>
     </Box>
