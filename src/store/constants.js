@@ -1,14 +1,3 @@
-export const AuthActionTypes = {
-    authorize: "AUTHORIZE",
-    updateTokenState: "CHECK_TOKEN_VALID",
-    refreshAccessToken: "REFRESH_ACCESS_TOKEN",
-}
-export const MessengerActionTypes = {
-    sendMessage: "SEND_MESSAGE",
-    getAfter: "GET_MESSAGES_AFTER",
-    getBefore: "GET_MESSAGES_BEFORE",
-}
-
 export const SSO_URL = process.env.REACT_APP_TYPE12_SERVER_IP
 export const CLIENT_ID = process.env.REACT_APP_TYPE12_CLIENT_ID
 export const CLIENT_SECRET = process.env.REACT_APP_TYPE12_CLIENT_SECRET
@@ -19,3 +8,8 @@ export const OAUTH2_TOKEN_ENDPOINT = "/sso/oauth2/token"
 export const OAUTH2_AUTHORIZATION_ENDPOINT = "/sso/oauth2/authorize"
 export const LOGOUT_ENDPOINT = "/sso/logout"
 export const INTROSPECTION_ENDPOINT = '/sso/oauth2/introspect'
+
+export const INTROSPECTION_FAIL_RESULT = {
+    FAILED: "FAILED",
+    REFRESHING: "REFRESHING",
+}

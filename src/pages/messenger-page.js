@@ -1,70 +1,86 @@
-import {Box, Button, Card, CardContent, TextField, Typography} from "@mui/material";
+import {Box, Button, Card, CardContent, MenuItem, Select, TextField, Typography} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {getMessagesAfter, sendMessage} from "../store/actions/messenger-actions";
-import {useEffect, useState} from "react";
+import {useState} from "react";
+import {getSelfId} from "../store/token-manager";
+import {useNavigate} from "react-router-dom";
+import {createNewChatGrpcCall} from "../store/slices/messenger-slice";
+
+const ChatPanel = (props) => {
+    const {users, chat} = props
+    const navigate = useNavigate()
+
+    let text = ""
+
+    chat.users.map(userId => {
+        return users.find(user => user.id === userId)
+    }).forEach(user => {
+        if (user === undefined) {
+            text += "???, "
+        } else {
+            text += user.firstName + " " + user.lastName + ", "
+        }
+    })
+
+    text = text.substring(0, text.length - 2)
+
+    return <div key={chat.id}>
+        <Button key={chat.id} onClick={() => {
+            navigate("/chat/" + chat.id)
+        }}>
+            Chat with {text}
+        </Button>
+        <br/>
+    </div>
+}
 
 export default () => {
     const dispatch = useDispatch();
-    const messages = useSelector((state) => state.messengerReducer.messages);
-    const [text, setText] = useState("")
-    const [receiver, setReceiver] = useState("");
+    const chats = useSelector((state) => state.messages.chats);
+    const users = useSelector((state) => state.messages.users);
 
-    useEffect(() => {
-        dispatch(getMessagesAfter(0))
-    }, [])
+    const [selectedUser, setSelectedUser] = useState(null);
 
-    return <Box display="flex"
-                flexDirection="column"
-                justifyContent="center"
-                alignItems="center">
+    return <Box>
         <br/>
-        <Card>
+        <Card key="creator" className="creator">
             <CardContent>
-                <Typography variant="h5">
-                    New Message:
+                <Typography variant="h4">
+                    Chat creator
                 </Typography>
                 <br/>
                 <Typography variant="h6">
-                    Text:
+                    Select a user to create chat with him.
                 </Typography>
                 <br/>
-                <TextField value={text} onChange={(event) => {setText(event.target.value)}}/>
+                <Select labelId="user-selector" id="user-select" value={selectedUser == null ? "" : selectedUser.id} onChange={(event) => {
+                    setSelectedUser(users.find(user => user.id === event.target.value))
+                }}>
+                    {
+                        users.filter(user => user.id !== getSelfId()).map(user => <MenuItem key={user.id} value={user.id}>{user.firstName + " " + user.lastName}</MenuItem>)
+                    }
+                </Select>
                 <br/>
                 <br/>
-                <Typography variant="h6">
-                    Receiver:
-                </Typography>
-                <br/>
-                <TextField value={receiver} onChange={(event) => {setReceiver(event.target.value)}}/>
-                <br/>
-                <br/>
-                <Button onClick={() => {
-                    dispatch(sendMessage(receiver, text))
-                }}>Send</Button>
+                <Button disabled={selectedUser === null} onClick={(event) => {
+                    dispatch(createNewChatGrpcCall(selectedUser.id))
+                }}>Start chatting</Button>
             </CardContent>
         </Card>
         <br/>
-        {
-            messages.sort((a, b) => a.time > b.time ? 1 : -1).map((message, index) =>
-                <div id={index} key={index}>
-                    <Card>
-                        <CardContent>
-                            <Typography variant="h5">
-                                from: {message.fromEmail}
-                            </Typography>
-                            <br/>
-                            <Typography variant="h5">
-                                to: {message.toEmail}
-                            </Typography>
-                            <br/>
-                            <Typography variant="h6">
-                                {message.content}
-                            </Typography>
-                        </CardContent>
-                    </Card>
-                    <br/>
-                </div>
-            )
-        }
+        <Card key="chats" className="chats">
+            <CardContent>
+                <Typography variant="h4">
+                    List chats
+                </Typography>
+
+                <br/>
+
+                {
+                    chats.map((chat) => <ChatPanel key={chat.id} chat={chat} users={users}/>)
+                }
+
+            </CardContent>
+        </Card>
+        <br/>
     </Box>
 }

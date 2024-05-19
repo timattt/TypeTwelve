@@ -1,6 +1,6 @@
 import {Box, Button, Card, CardActions, CardContent, Typography} from "@mui/material";
 import {useDispatch} from "react-redux";
-import {performAuthorization} from "../store/actions/auth-actions";
+import {performAuthorization} from "../store/slices/auth-slice";
 
 export default () => {
     const dispatch = useDispatch();

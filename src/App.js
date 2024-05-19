@@ -1,21 +1,15 @@
-import { thunk } from 'redux-thunk'
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {Provider} from 'react-redux'
-import {rootReducer} from "./store/reducers/root-reducer";
 import PrivateRoutes from "./pages/private-route";
 import LoginPage from "./pages/login-page";
 import UnauthorizedPage from "./pages/unauthorized-page";
 import HomePage from "./pages/home-page";
 import SuccessfulAuthorizationPage from "./pages/successful-authorization-page";
 import CodePage from "./pages/code-page";
-import { configureStore } from '@reduxjs/toolkit'
+import store from './store/store';
 import Header from "./pages/header";
 import MessengerPage from "./pages/messenger-page";
-
-const store = configureStore({
-  reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk)
-})
+import ChatPage from "./pages/chat-page";
 
 function App() {
   return <Provider store={store}>
@@ -29,6 +23,7 @@ function App() {
           <Route element={<PrivateRoutes />}>
             <Route element={<SuccessfulAuthorizationPage/>} path="/authorized"/>
             <Route element={<MessengerPage/>} path="/messenger"/>
+            <Route element={<ChatPage/>} path="/chat/:id"/>
           </Route>
         </Route>
       </Routes>

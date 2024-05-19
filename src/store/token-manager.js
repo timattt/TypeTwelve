@@ -50,3 +50,8 @@ export function getSelfEmail() {
     const res = parseJwt(getAccessToken())
     return res.email;
 }
+
+export function getSelfId() {
+    const res = parseJwt(getAccessToken())
+    return Number(res.id);
+}
