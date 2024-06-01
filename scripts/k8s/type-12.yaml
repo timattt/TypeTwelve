@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: type-12
-          image: docker.io/timattt/type-12:latest
+          image: quay.io/timattt/type-12:latest
           imagePullPolicy: Always
           env:
             - name: REACT_APP_TYPE12_CLIENT_ID
