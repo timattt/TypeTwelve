@@ -1,5 +1,5 @@
 /**
- * @fileoverview gRPC-Web generated client stub for org.shlimtech.typeeleven
+ * @fileoverview gRPC-Web generated client stub for io.mipt.typeeleven
  * @enhanceable
  * @public
  */
@@ -20,9 +20,9 @@ const grpc = {};
 grpc.web = require('grpc-web');
 
 const proto = {};
-proto.org = {};
-proto.org.shlimtech = {};
-proto.org.shlimtech.typeeleven = require('./messenger_pb.js');
+proto.io = {};
+proto.io.mipt = {};
+proto.io.mipt.typeeleven = require('./messenger_pb.js');
 
 /**
  * @param {string} hostname
@@ -32,7 +32,7 @@ proto.org.shlimtech.typeeleven = require('./messenger_pb.js');
  * @struct
  * @final
  */
-proto.org.shlimtech.typeeleven.MessengerClient =
+proto.io.mipt.typeeleven.MessengerClient =
     function(hostname, credentials, options) {
   if (!options) options = {};
   options.format = 'text';
@@ -58,7 +58,7 @@ proto.org.shlimtech.typeeleven.MessengerClient =
  * @struct
  * @final
  */
-proto.org.shlimtech.typeeleven.MessengerPromiseClient =
+proto.io.mipt.typeeleven.MessengerPromiseClient =
     function(hostname, credentials, options) {
   if (!options) options = {};
   options.format = 'text';
@@ -79,39 +79,39 @@ proto.org.shlimtech.typeeleven.MessengerPromiseClient =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.org.shlimtech.typeeleven.EmptyRequest,
- *   !proto.org.shlimtech.typeeleven.ListUsersResponse>}
+ *   !proto.io.mipt.typeeleven.EmptyRequest,
+ *   !proto.io.mipt.typeeleven.ListUsersResponse>}
  */
 const methodDescriptor_Messenger_listUsers = new grpc.web.MethodDescriptor(
-  '/org.shlimtech.typeeleven.Messenger/listUsers',
+  '/io.mipt.typeeleven.Messenger/listUsers',
   grpc.web.MethodType.UNARY,
-  proto.org.shlimtech.typeeleven.EmptyRequest,
-  proto.org.shlimtech.typeeleven.ListUsersResponse,
+  proto.io.mipt.typeeleven.EmptyRequest,
+  proto.io.mipt.typeeleven.ListUsersResponse,
   /**
-   * @param {!proto.org.shlimtech.typeeleven.EmptyRequest} request
+   * @param {!proto.io.mipt.typeeleven.EmptyRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.org.shlimtech.typeeleven.ListUsersResponse.deserializeBinary
+  proto.io.mipt.typeeleven.ListUsersResponse.deserializeBinary
 );
 
 
 /**
- * @param {!proto.org.shlimtech.typeeleven.EmptyRequest} request The
+ * @param {!proto.io.mipt.typeeleven.EmptyRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.RpcError, ?proto.org.shlimtech.typeeleven.ListUsersResponse)}
+ * @param {function(?grpc.web.RpcError, ?proto.io.mipt.typeeleven.ListUsersResponse)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.org.shlimtech.typeeleven.ListUsersResponse>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.io.mipt.typeeleven.ListUsersResponse>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.org.shlimtech.typeeleven.MessengerClient.prototype.listUsers =
+proto.io.mipt.typeeleven.MessengerClient.prototype.listUsers =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/org.shlimtech.typeeleven.Messenger/listUsers',
+      '/io.mipt.typeeleven.Messenger/listUsers',
       request,
       metadata || {},
       methodDescriptor_Messenger_listUsers,
@@ -120,17 +120,17 @@ proto.org.shlimtech.typeeleven.MessengerClient.prototype.listUsers =
 
 
 /**
- * @param {!proto.org.shlimtech.typeeleven.EmptyRequest} request The
+ * @param {!proto.io.mipt.typeeleven.EmptyRequest} request The
  *     request proto
  * @param {?Object<string, string>=} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.org.shlimtech.typeeleven.ListUsersResponse>}
+ * @return {!Promise<!proto.io.mipt.typeeleven.ListUsersResponse>}
  *     Promise that resolves to the response
  */
-proto.org.shlimtech.typeeleven.MessengerPromiseClient.prototype.listUsers =
+proto.io.mipt.typeeleven.MessengerPromiseClient.prototype.listUsers =
     function(request, metadata) {
   return this.client_.unaryCall(this.hostname_ +
-      '/org.shlimtech.typeeleven.Messenger/listUsers',
+      '/io.mipt.typeeleven.Messenger/listUsers',
       request,
       metadata || {},
       methodDescriptor_Messenger_listUsers);
@@ -140,39 +140,39 @@ proto.org.shlimtech.typeeleven.MessengerPromiseClient.prototype.listUsers =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.org.shlimtech.typeeleven.EmptyRequest,
- *   !proto.org.shlimtech.typeeleven.ListChatsResponse>}
+ *   !proto.io.mipt.typeeleven.EmptyRequest,
+ *   !proto.io.mipt.typeeleven.ListChatsResponse>}
  */
 const methodDescriptor_Messenger_listChats = new grpc.web.MethodDescriptor(
-  '/org.shlimtech.typeeleven.Messenger/listChats',
+  '/io.mipt.typeeleven.Messenger/listChats',
   grpc.web.MethodType.UNARY,
-  proto.org.shlimtech.typeeleven.EmptyRequest,
-  proto.org.shlimtech.typeeleven.ListChatsResponse,
+  proto.io.mipt.typeeleven.EmptyRequest,
+  proto.io.mipt.typeeleven.ListChatsResponse,
   /**
-   * @param {!proto.org.shlimtech.typeeleven.EmptyRequest} request
+   * @param {!proto.io.mipt.typeeleven.EmptyRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.org.shlimtech.typeeleven.ListChatsResponse.deserializeBinary
+  proto.io.mipt.typeeleven.ListChatsResponse.deserializeBinary
 );
 
 
 /**
- * @param {!proto.org.shlimtech.typeeleven.EmptyRequest} request The
+ * @param {!proto.io.mipt.typeeleven.EmptyRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.RpcError, ?proto.org.shlimtech.typeeleven.ListChatsResponse)}
+ * @param {function(?grpc.web.RpcError, ?proto.io.mipt.typeeleven.ListChatsResponse)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.org.shlimtech.typeeleven.ListChatsResponse>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.io.mipt.typeeleven.ListChatsResponse>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.org.shlimtech.typeeleven.MessengerClient.prototype.listChats =
+proto.io.mipt.typeeleven.MessengerClient.prototype.listChats =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/org.shlimtech.typeeleven.Messenger/listChats',
+      '/io.mipt.typeeleven.Messenger/listChats',
       request,
       metadata || {},
       methodDescriptor_Messenger_listChats,
@@ -181,17 +181,17 @@ proto.org.shlimtech.typeeleven.MessengerClient.prototype.listChats =
 
 
 /**
- * @param {!proto.org.shlimtech.typeeleven.EmptyRequest} request The
+ * @param {!proto.io.mipt.typeeleven.EmptyRequest} request The
  *     request proto
  * @param {?Object<string, string>=} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.org.shlimtech.typeeleven.ListChatsResponse>}
+ * @return {!Promise<!proto.io.mipt.typeeleven.ListChatsResponse>}
  *     Promise that resolves to the response
  */
-proto.org.shlimtech.typeeleven.MessengerPromiseClient.prototype.listChats =
+proto.io.mipt.typeeleven.MessengerPromiseClient.prototype.listChats =
     function(request, metadata) {
   return this.client_.unaryCall(this.hostname_ +
-      '/org.shlimtech.typeeleven.Messenger/listChats',
+      '/io.mipt.typeeleven.Messenger/listChats',
       request,
       metadata || {},
       methodDescriptor_Messenger_listChats);
@@ -201,39 +201,39 @@ proto.org.shlimtech.typeeleven.MessengerPromiseClient.prototype.listChats =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.org.shlimtech.typeeleven.ListMessagesRequest,
- *   !proto.org.shlimtech.typeeleven.ListMessagesResponse>}
+ *   !proto.io.mipt.typeeleven.ListMessagesRequest,
+ *   !proto.io.mipt.typeeleven.ListMessagesResponse>}
  */
 const methodDescriptor_Messenger_listMessages = new grpc.web.MethodDescriptor(
-  '/org.shlimtech.typeeleven.Messenger/listMessages',
+  '/io.mipt.typeeleven.Messenger/listMessages',
   grpc.web.MethodType.UNARY,
-  proto.org.shlimtech.typeeleven.ListMessagesRequest,
-  proto.org.shlimtech.typeeleven.ListMessagesResponse,
+  proto.io.mipt.typeeleven.ListMessagesRequest,
+  proto.io.mipt.typeeleven.ListMessagesResponse,
   /**
-   * @param {!proto.org.shlimtech.typeeleven.ListMessagesRequest} request
+   * @param {!proto.io.mipt.typeeleven.ListMessagesRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.org.shlimtech.typeeleven.ListMessagesResponse.deserializeBinary
+  proto.io.mipt.typeeleven.ListMessagesResponse.deserializeBinary
 );
 
 
 /**
- * @param {!proto.org.shlimtech.typeeleven.ListMessagesRequest} request The
+ * @param {!proto.io.mipt.typeeleven.ListMessagesRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.RpcError, ?proto.org.shlimtech.typeeleven.ListMessagesResponse)}
+ * @param {function(?grpc.web.RpcError, ?proto.io.mipt.typeeleven.ListMessagesResponse)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.org.shlimtech.typeeleven.ListMessagesResponse>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.io.mipt.typeeleven.ListMessagesResponse>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.org.shlimtech.typeeleven.MessengerClient.prototype.listMessages =
+proto.io.mipt.typeeleven.MessengerClient.prototype.listMessages =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/org.shlimtech.typeeleven.Messenger/listMessages',
+      '/io.mipt.typeeleven.Messenger/listMessages',
       request,
       metadata || {},
       methodDescriptor_Messenger_listMessages,
@@ -242,17 +242,17 @@ proto.org.shlimtech.typeeleven.MessengerClient.prototype.listMessages =
 
 
 /**
- * @param {!proto.org.shlimtech.typeeleven.ListMessagesRequest} request The
+ * @param {!proto.io.mipt.typeeleven.ListMessagesRequest} request The
  *     request proto
  * @param {?Object<string, string>=} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.org.shlimtech.typeeleven.ListMessagesResponse>}
+ * @return {!Promise<!proto.io.mipt.typeeleven.ListMessagesResponse>}
  *     Promise that resolves to the response
  */
-proto.org.shlimtech.typeeleven.MessengerPromiseClient.prototype.listMessages =
+proto.io.mipt.typeeleven.MessengerPromiseClient.prototype.listMessages =
     function(request, metadata) {
   return this.client_.unaryCall(this.hostname_ +
-      '/org.shlimtech.typeeleven.Messenger/listMessages',
+      '/io.mipt.typeeleven.Messenger/listMessages',
       request,
       metadata || {},
       methodDescriptor_Messenger_listMessages);
@@ -262,39 +262,39 @@ proto.org.shlimtech.typeeleven.MessengerPromiseClient.prototype.listMessages =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.org.shlimtech.typeeleven.NewChatRequest,
- *   !proto.org.shlimtech.typeeleven.NewChatResponse>}
+ *   !proto.io.mipt.typeeleven.NewChatRequest,
+ *   !proto.io.mipt.typeeleven.NewChatResponse>}
  */
 const methodDescriptor_Messenger_newChat = new grpc.web.MethodDescriptor(
-  '/org.shlimtech.typeeleven.Messenger/newChat',
+  '/io.mipt.typeeleven.Messenger/newChat',
   grpc.web.MethodType.UNARY,
-  proto.org.shlimtech.typeeleven.NewChatRequest,
-  proto.org.shlimtech.typeeleven.NewChatResponse,
+  proto.io.mipt.typeeleven.NewChatRequest,
+  proto.io.mipt.typeeleven.NewChatResponse,
   /**
-   * @param {!proto.org.shlimtech.typeeleven.NewChatRequest} request
+   * @param {!proto.io.mipt.typeeleven.NewChatRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.org.shlimtech.typeeleven.NewChatResponse.deserializeBinary
+  proto.io.mipt.typeeleven.NewChatResponse.deserializeBinary
 );
 
 
 /**
- * @param {!proto.org.shlimtech.typeeleven.NewChatRequest} request The
+ * @param {!proto.io.mipt.typeeleven.NewChatRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.RpcError, ?proto.org.shlimtech.typeeleven.NewChatResponse)}
+ * @param {function(?grpc.web.RpcError, ?proto.io.mipt.typeeleven.NewChatResponse)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.org.shlimtech.typeeleven.NewChatResponse>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.io.mipt.typeeleven.NewChatResponse>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.org.shlimtech.typeeleven.MessengerClient.prototype.newChat =
+proto.io.mipt.typeeleven.MessengerClient.prototype.newChat =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/org.shlimtech.typeeleven.Messenger/newChat',
+      '/io.mipt.typeeleven.Messenger/newChat',
       request,
       metadata || {},
       methodDescriptor_Messenger_newChat,
@@ -303,17 +303,17 @@ proto.org.shlimtech.typeeleven.MessengerClient.prototype.newChat =
 
 
 /**
- * @param {!proto.org.shlimtech.typeeleven.NewChatRequest} request The
+ * @param {!proto.io.mipt.typeeleven.NewChatRequest} request The
  *     request proto
  * @param {?Object<string, string>=} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.org.shlimtech.typeeleven.NewChatResponse>}
+ * @return {!Promise<!proto.io.mipt.typeeleven.NewChatResponse>}
  *     Promise that resolves to the response
  */
-proto.org.shlimtech.typeeleven.MessengerPromiseClient.prototype.newChat =
+proto.io.mipt.typeeleven.MessengerPromiseClient.prototype.newChat =
     function(request, metadata) {
   return this.client_.unaryCall(this.hostname_ +
-      '/org.shlimtech.typeeleven.Messenger/newChat',
+      '/io.mipt.typeeleven.Messenger/newChat',
       request,
       metadata || {},
       methodDescriptor_Messenger_newChat);
@@ -323,36 +323,36 @@ proto.org.shlimtech.typeeleven.MessengerPromiseClient.prototype.newChat =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.org.shlimtech.typeeleven.EmptyRequest,
- *   !proto.org.shlimtech.typeeleven.ExchangeResponse>}
+ *   !proto.io.mipt.typeeleven.EmptyRequest,
+ *   !proto.io.mipt.typeeleven.ExchangeResponse>}
  */
 const methodDescriptor_Messenger_receiveMessages = new grpc.web.MethodDescriptor(
-  '/org.shlimtech.typeeleven.Messenger/receiveMessages',
+  '/io.mipt.typeeleven.Messenger/receiveMessages',
   grpc.web.MethodType.SERVER_STREAMING,
-  proto.org.shlimtech.typeeleven.EmptyRequest,
-  proto.org.shlimtech.typeeleven.ExchangeResponse,
+  proto.io.mipt.typeeleven.EmptyRequest,
+  proto.io.mipt.typeeleven.ExchangeResponse,
   /**
-   * @param {!proto.org.shlimtech.typeeleven.EmptyRequest} request
+   * @param {!proto.io.mipt.typeeleven.EmptyRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.org.shlimtech.typeeleven.ExchangeResponse.deserializeBinary
+  proto.io.mipt.typeeleven.ExchangeResponse.deserializeBinary
 );
 
 
 /**
- * @param {!proto.org.shlimtech.typeeleven.EmptyRequest} request The request proto
+ * @param {!proto.io.mipt.typeeleven.EmptyRequest} request The request proto
  * @param {?Object<string, string>=} metadata User defined
  *     call metadata
- * @return {!grpc.web.ClientReadableStream<!proto.org.shlimtech.typeeleven.ExchangeResponse>}
+ * @return {!grpc.web.ClientReadableStream<!proto.io.mipt.typeeleven.ExchangeResponse>}
  *     The XHR Node Readable Stream
  */
-proto.org.shlimtech.typeeleven.MessengerClient.prototype.receiveMessages =
+proto.io.mipt.typeeleven.MessengerClient.prototype.receiveMessages =
     function(request, metadata) {
   return this.client_.serverStreaming(this.hostname_ +
-      '/org.shlimtech.typeeleven.Messenger/receiveMessages',
+      '/io.mipt.typeeleven.Messenger/receiveMessages',
       request,
       metadata || {},
       methodDescriptor_Messenger_receiveMessages);
@@ -360,16 +360,16 @@ proto.org.shlimtech.typeeleven.MessengerClient.prototype.receiveMessages =
 
 
 /**
- * @param {!proto.org.shlimtech.typeeleven.EmptyRequest} request The request proto
+ * @param {!proto.io.mipt.typeeleven.EmptyRequest} request The request proto
  * @param {?Object<string, string>=} metadata User defined
  *     call metadata
- * @return {!grpc.web.ClientReadableStream<!proto.org.shlimtech.typeeleven.ExchangeResponse>}
+ * @return {!grpc.web.ClientReadableStream<!proto.io.mipt.typeeleven.ExchangeResponse>}
  *     The XHR Node Readable Stream
  */
-proto.org.shlimtech.typeeleven.MessengerPromiseClient.prototype.receiveMessages =
+proto.io.mipt.typeeleven.MessengerPromiseClient.prototype.receiveMessages =
     function(request, metadata) {
   return this.client_.serverStreaming(this.hostname_ +
-      '/org.shlimtech.typeeleven.Messenger/receiveMessages',
+      '/io.mipt.typeeleven.Messenger/receiveMessages',
       request,
       metadata || {},
       methodDescriptor_Messenger_receiveMessages);
@@ -379,39 +379,39 @@ proto.org.shlimtech.typeeleven.MessengerPromiseClient.prototype.receiveMessages 
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.org.shlimtech.typeeleven.SendMessageRequest,
- *   !proto.org.shlimtech.typeeleven.SendMessageResponse>}
+ *   !proto.io.mipt.typeeleven.SendMessageRequest,
+ *   !proto.io.mipt.typeeleven.SendMessageResponse>}
  */
 const methodDescriptor_Messenger_sendMessage = new grpc.web.MethodDescriptor(
-  '/org.shlimtech.typeeleven.Messenger/sendMessage',
+  '/io.mipt.typeeleven.Messenger/sendMessage',
   grpc.web.MethodType.UNARY,
-  proto.org.shlimtech.typeeleven.SendMessageRequest,
-  proto.org.shlimtech.typeeleven.SendMessageResponse,
+  proto.io.mipt.typeeleven.SendMessageRequest,
+  proto.io.mipt.typeeleven.SendMessageResponse,
   /**
-   * @param {!proto.org.shlimtech.typeeleven.SendMessageRequest} request
+   * @param {!proto.io.mipt.typeeleven.SendMessageRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.org.shlimtech.typeeleven.SendMessageResponse.deserializeBinary
+  proto.io.mipt.typeeleven.SendMessageResponse.deserializeBinary
 );
 
 
 /**
- * @param {!proto.org.shlimtech.typeeleven.SendMessageRequest} request The
+ * @param {!proto.io.mipt.typeeleven.SendMessageRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.RpcError, ?proto.org.shlimtech.typeeleven.SendMessageResponse)}
+ * @param {function(?grpc.web.RpcError, ?proto.io.mipt.typeeleven.SendMessageResponse)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.org.shlimtech.typeeleven.SendMessageResponse>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.io.mipt.typeeleven.SendMessageResponse>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.org.shlimtech.typeeleven.MessengerClient.prototype.sendMessage =
+proto.io.mipt.typeeleven.MessengerClient.prototype.sendMessage =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/org.shlimtech.typeeleven.Messenger/sendMessage',
+      '/io.mipt.typeeleven.Messenger/sendMessage',
       request,
       metadata || {},
       methodDescriptor_Messenger_sendMessage,
@@ -420,22 +420,22 @@ proto.org.shlimtech.typeeleven.MessengerClient.prototype.sendMessage =
 
 
 /**
- * @param {!proto.org.shlimtech.typeeleven.SendMessageRequest} request The
+ * @param {!proto.io.mipt.typeeleven.SendMessageRequest} request The
  *     request proto
  * @param {?Object<string, string>=} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.org.shlimtech.typeeleven.SendMessageResponse>}
+ * @return {!Promise<!proto.io.mipt.typeeleven.SendMessageResponse>}
  *     Promise that resolves to the response
  */
-proto.org.shlimtech.typeeleven.MessengerPromiseClient.prototype.sendMessage =
+proto.io.mipt.typeeleven.MessengerPromiseClient.prototype.sendMessage =
     function(request, metadata) {
   return this.client_.unaryCall(this.hostname_ +
-      '/org.shlimtech.typeeleven.Messenger/sendMessage',
+      '/io.mipt.typeeleven.Messenger/sendMessage',
       request,
       metadata || {},
       methodDescriptor_Messenger_sendMessage);
 };
 
 
-module.exports = proto.org.shlimtech.typeeleven;
+module.exports = proto.io.mipt.typeeleven;
 
