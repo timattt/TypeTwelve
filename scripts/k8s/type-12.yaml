@@ -28,10 +28,10 @@ spec:
                   name: type-6-basic-secrets
                   key: type_12_client_secret
             - name: REACT_APP_TYPE12_REDIRECT_URI
-              value: https://messenger.shlimtech.org/code
+              value: https://messenger.mipt.io/code
             - name: REACT_APP_TYPE12_SERVER_IP
-              value: https://service.shlimtech.org
+              value: https://sso.mipt.io
             - name: REACT_APP_TYPE12_TYPE11_URL
-              value: https://type-11.shlimtech.org
+              value: https://grpc.mipt.io
             - name: HTTPS
               value: "false"
