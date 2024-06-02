@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package org.shlimtech.typeeleven;
+package io.mipt.typeeleven;
 
 option java_multiple_files = true;
 option java_package = "io.mipt.typeeleven.grpc";
