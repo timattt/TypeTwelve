@@ -7,7 +7,7 @@ export const toStringUser = (user) => {
     if (user.firstName === undefined || user.firstName === null || user.firstName.length === 0) {
         firstName = login;
     }
-    if (user.lastName !== undefined && user.lastName !== null && user.lastName.length > 0) {
+    if (user.lastName !== undefined && user.lastName !== null && user.lastName !== "null" && user.lastName.length > 0) {
         lastName = user.lastName;
     }
 
