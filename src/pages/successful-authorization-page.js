@@ -1,7 +1,9 @@
 import {Box, Button, Card, CardActions, CardContent, Typography} from "@mui/material";
-import {getAccessToken, getRefreshToken, hasTokens} from "../store/token-manager";
+import {useNavigate} from "react-router-dom";
 
 export default () => {
+    const navigate = useNavigate();
+
     return <Box>
             <Card>
                 <CardContent>
@@ -11,23 +13,10 @@ export default () => {
                     <Typography variant="h8">
                         Вы успешно авторизировались!
                     </Typography>
-                    <Typography variant="h8">
-                        {hasTokens() ? <div>
-                            <br/>
-                            <br/>
-                            Access:
-                            <br/>
-                            <br/>
-                            {getAccessToken()}
-                            <br/>
-                            <br/>
-                            Refresh:
-                            <br/>
-                            <br/>
-                            {getRefreshToken()}
-                        </div> : <div>Токенов нет!</div>}
-                    </Typography>
                 </CardContent>
+                <CardActions>
+                    <Button size="small" onClick={() => navigate("/messenger")}>Перейти в мессенджер</Button>
+                </CardActions>
             </Card>
     </Box>
 }

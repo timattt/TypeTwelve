@@ -3,13 +3,14 @@ import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {listMessagesGrpcCall, sendMessageGrpcCall, clearMessages} from "../store/slices/messenger-slice";
+import {toStringUser} from "../utils";
 
 const makeUserString = (users, message) => {
     const user = users.find((user) => message.senderId === user.id)
     if (user === undefined) {
         return ""
     }
-    return user.firstName + " " + user.lastName
+    return toStringUser(user)
 }
 
 const PAGE_SIZE = 2;
